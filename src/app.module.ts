@@ -6,9 +6,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 
+import { TablesController } from './tables/tables.controller';
+import { TablesModule } from './tables/tables.module';
+
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://192.168.9.67'), UsersModule],
-  controllers: [UsersController],
+  imports: [
+    MongooseModule.forRoot('mongodb://192.168.9.67'),
+    UsersModule,
+
+    TablesModule,
+  ],
+  controllers: [UsersController, TablesController],
   providers: [UsersService],
 })
 export class AppModule {}
