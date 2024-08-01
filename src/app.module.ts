@@ -8,6 +8,7 @@ import { UsersService } from './users/users.service';
 
 import { TablesController } from './tables/tables.controller';
 import { TablesModule } from './tables/tables.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,6 +16,8 @@ import { TablesModule } from './tables/tables.module';
     UsersModule,
 
     TablesModule,
+
+    AuthModule,
   ],
   controllers: [UsersController, TablesController],
   providers: [UsersService],
