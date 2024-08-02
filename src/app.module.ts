@@ -12,7 +12,7 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://192.168.9.67'),
+    MongooseModule.forRoot('mongodb+srv://rjsarellano:5Da7lgkooc123$@rpt.bnqpxht.mongodb.net/'),
     UsersModule,
 
     TablesModule,

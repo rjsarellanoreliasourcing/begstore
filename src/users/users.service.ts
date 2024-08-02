@@ -6,14 +6,6 @@ import { CreateUserDto } from './dto/CreateUser.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-
-  createUser(createUser: CreateUserDto) {
-    const newUser = new this.userModel(CreateUserDto);
-    return newUser.save();
-  }
-
-  getUsers() {
-    return this.userModel.find();
-  }
+ 
+  
 }
