@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/schema/user.schema';
@@ -6,7 +6,11 @@ import { CreateUserDto } from './dto/CreateUser.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel('user') private userModel: Model<User>) {}
+  private readonly logger = new Logger(UsersService.name);
+
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+  ) {}
 
   async createUser(
     userEmail: string,
@@ -14,12 +18,19 @@ export class UsersService {
     mobileNumber: Number,
     username: string,
   ): Promise<User> {
-    const newUser = new this.userModel({
-      displayName,
-      username,
-      userEmail,
-      mobileNumber,
-    });
-    return newUser.save();
+    try {
+      const newUser = new this.userModel({
+        displayName,
+        username,
+        userEmail,
+        mobileNumber,
+      });
+      const result = await newUser.save();
+      this.logger.log('User saved successfully');
+      return result;
+    } catch (error) {
+      this.logger.error('Error saving user', error.stack);
+      throw error;
+    }
   }
 }
