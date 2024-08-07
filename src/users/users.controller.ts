@@ -1,6 +1,8 @@
-import { Controller, Post, Body, Logger } from '@nestjs/common';
+import { Controller, Post, Body, Logger, Get } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/CreateUser.dto';
+import { GetAllUserDto } from './dto/GetAllUser.dto';
+import { error } from 'console';
 
 @Controller('users')
 export class UsersController {
@@ -10,7 +12,14 @@ export class UsersController {
 
   @Post('createUsers') // Ensure the route matches the Postman request
   async createUsers(@Body() createUserDto: CreateUserDto) {
-    const { userEmail, displayName, mobileNumber, username } = createUserDto;
+    const {
+      userEmail,
+      displayName,
+      mobileNumber,
+      username,
+      password,
+      userType,
+    } = createUserDto;
 
     try {
       const user = await this.usersService.createUser(
@@ -18,12 +27,32 @@ export class UsersController {
         displayName,
         mobileNumber,
         username,
+        password,
+        userType,
       );
       this.logger.log('User created successfully');
       return user;
     } catch (error) {
       this.logger.error('Failed to create user', error.stack);
       throw error; // Rethrow the error to be handled by NestJS
+    }
+  }
+
+  @Get('getAllUser')
+  async getAllUser(@Body() getAllUserDto: GetAllUserDto) {
+    const {
+      userEmail,
+      displayName,
+      mobileNumber,
+      username,
+
+      userType,
+    } = getAllUserDto;
+    try {
+      const user = await this.usersService.getAllUser();
+    } catch (error) {
+      this.logger.error('Failed to get all the users', error);
+      throw error;
     }
   }
 }

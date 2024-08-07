@@ -17,6 +17,8 @@ export class UsersService {
     displayName: string,
     mobileNumber: Number,
     username: string,
+    password: string,
+    userType: string,
   ): Promise<User> {
     try {
       const newUser = new this.userModel({
@@ -24,6 +26,7 @@ export class UsersService {
         username,
         userEmail,
         mobileNumber,
+        password,
       });
       const result = await newUser.save();
       this.logger.log('User saved successfully');
@@ -31,6 +34,15 @@ export class UsersService {
     } catch (error) {
       this.logger.error('Error saving user', error.stack);
       throw error;
+    }
+  }
+
+  async getAllUser() {
+    try {
+      const user = await this.userModel.find({ userType: 'employee' });
+      return user;
+    } catch (error) {
+      console.log('Error on getting all Users', error);
     }
   }
 }

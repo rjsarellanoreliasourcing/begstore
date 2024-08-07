@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsString, IsInt, IsOptional } from 'class-validator';
+import { IsString } from 'class-validator';
 
-export class CreateUserDto {
+export class GetAllUserDto {
   username: string;
   displayName: string;
   userId: string;
