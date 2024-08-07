@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Logger, Get } from '@nestjs/common';
+import { Controller, Post, Body, Logger, Get, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/CreateUser.dto';
 import { GetAllUserDto } from './dto/GetAllUser.dto';
@@ -39,17 +39,12 @@ export class UsersController {
   }
 
   @Get('getAllUser')
-  async getAllUser(@Body() getAllUserDto: GetAllUserDto) {
-    const {
-      userEmail,
-      displayName,
-      mobileNumber,
-      username,
-
-      userType,
-    } = getAllUserDto;
+  async getAllUser(@Query() getAllUserDto: GetAllUserDto) {
+    const { userEmail, displayName, mobileNumber, username, userType } =
+      getAllUserDto;
     try {
-      const user = await this.usersService.getAllUser();
+      const users = await this.usersService.getAllUser();
+      return users;
     } catch (error) {
       this.logger.error('Failed to get all the users', error);
       throw error;
