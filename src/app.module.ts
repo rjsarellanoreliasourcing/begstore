@@ -1,18 +1,21 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersController } from './users/users.controller';
-import { UsersService } from './users/users.service';
+// import { UsersController } from './users/users.controller';
+// import { UsersService } from './users/users.service';
 import { User, UserSchema } from './schema/user.schema';
+import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://rjsarellano:5Da7lgkooc123$@rpt.bnqpxht.mongodb.net/test2?retryWrites=true&w=majority&appName=RPT',
-    ),
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    DatabaseModule,
   ],
-  controllers: [UsersController],
-  providers: [UsersService],
-  exports: [UsersService],
+  controllers: [],
+  providers: [],
+  // exports: [UsersService],
 })
 export class AppModule {}

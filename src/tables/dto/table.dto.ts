@@ -4,4 +4,5 @@ export class tableDto {
   @IsNumber()
   tableNumber: Number;
   tableCapacity: Number;
+  tableAvailability: boolean;
 }
