@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-class table {
+@Entity()
+class Table {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -13,3 +14,5 @@ class table {
   @Column()
   tableCapacity: number;
 }
+
+export default Table;

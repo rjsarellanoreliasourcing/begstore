@@ -1,53 +1,13 @@
-// import { Controller, Post, Body, Logger, Get, Query } from '@nestjs/common';
-// import { UsersService } from './users.service';
-// import { CreateUserDto } from './dto/CreateUser.dto';
-// import { GetAllUserDto } from './dto/GetAllUser.dto';
-// import { error } from 'console';
+import { Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { UserService } from './users.service';
 
-// @Controller('users')
-// export class UsersController {
-//   private readonly logger = new Logger(UsersController.name);
+@Controller('user')
+export class UserCOntroller {
+  constructor(private readonly userService: UserService) {}
 
-//   constructor(private usersService: UsersService) {}
-
-//   @Post('createUsers')
-//   async createUsers(@Body() createUserDto: CreateUserDto) {
-//     const {
-//       userEmail,
-//       displayName,
-//       mobileNumber,
-//       username,
-//       password,
-//       userType,
-//     } = createUserDto;
-
-//     try {
-//       const user = await this.usersService.createUser(
-//         userEmail,
-//         displayName,
-//         mobileNumber,
-//         username,
-//         password,
-//         userType,
-//       );
-//       this.logger.log('User created successfully');
-//       return user;
-//     } catch (error) {
-//       this.logger.error('Failed to create user', error.stack);
-//       throw error;
-//     }
-//   }
-
-//   @Get('getAllUser')
-//   async getAllUser(@Query() getAllUserDto: GetAllUserDto) {
-//     const { userEmail, displayName, mobileNumber, username, userType } =
-//       getAllUserDto;
-//     try {
-//       const users = await this.usersService.getAllUser();
-//       return users;
-//     } catch (error) {
-//       this.logger.error('Failed to get all the users', error);
-//       throw error;
-//     }
-//   }
-// }
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return await this.userService.findById(id);
+  }
+}

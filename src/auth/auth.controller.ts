@@ -17,6 +17,27 @@ import { Request } from 'express';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Post('register')
+  async register(
+    @Body('email') email: string,
+    @Body('password') password: string,
+    @Body('displayName') displayName: string,
+    @Body('username') username: string,
+    @Body('userType') userType: string,
+    @Body('mobileNumber') mobileNumber: number,
+    @Body('userId') userId: string,
+  ) {
+    return this.authService.register({
+      email,
+      password,
+      displayName,
+      username,
+      userType,
+      mobileNumber,
+      userId,
+    });
+  }
+
   @Post('login')
   @UseGuards(LocalGuard)
   login(@Req() req: Request) {

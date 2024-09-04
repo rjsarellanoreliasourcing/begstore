@@ -5,7 +5,7 @@ class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('text', { unique: true })
   username: string;
 
   @Column()
@@ -14,3 +14,5 @@ class User {
   @Column()
   pasword: string;
 }
+
+export default User;

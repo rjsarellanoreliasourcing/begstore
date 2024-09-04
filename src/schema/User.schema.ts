@@ -1,11 +1,12 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { PrimaryGeneratedColumn } from 'typeorm';
 
 @Schema({
   timestamps: true,
 })
 export class User extends Document {
-  @Prop()
+  @PrimaryGeneratedColumn()
   userEmail: string;
 
   @Prop()

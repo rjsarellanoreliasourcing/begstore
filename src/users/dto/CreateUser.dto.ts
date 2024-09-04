@@ -4,7 +4,7 @@ export class CreateUserDto {
   username: string;
   displayName: string;
   userId: string;
-  userEmail: string;
+  email: string;
   mobileNumber: Number;
   password: string;
   userType: string;
