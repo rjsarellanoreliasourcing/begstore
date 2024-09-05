@@ -19,22 +19,15 @@ export class AuthController {
 
   @Post('register')
   async register(
+    @Body() body: any,
     @Body('email') email: string,
     @Body('password') password: string,
-    @Body('displayName') displayName: string,
-    @Body('username') username: string,
-    @Body('userType') userType: string,
-    @Body('mobileNumber') mobileNumber: number,
-    @Body('userId') userId: string,
+ 
   ) {
+    console.log('Received Request Body:', body);
     return this.authService.register({
       email,
       password,
-      displayName,
-      username,
-      userType,
-      mobileNumber,
-      userId,
     });
   }
 

@@ -5,14 +5,14 @@ class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text', { unique: true })
-  username: string;
+  //   @Column('text', { unique: true })
+  //   username: string;
 
   @Column()
   email: string;
 
   @Column()
-  pasword: string;
+  password: string;
 }
 
 export default User;
