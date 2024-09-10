@@ -12,6 +12,7 @@ import { UseGuards } from '@nestjs/common';
 import { LocalGuard } from './guards/local.guard';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { Request } from 'express';
+import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -19,16 +20,19 @@ export class AuthController {
 
   @Post('register')
   async register(
-    @Body() body: any,
+    @Body() createUserDto: CreateUserDto,
     @Body('email') email: string,
     @Body('password') password: string,
- 
   ) {
-    console.log('Received Request Body:', body);
-    return this.authService.register({
-      email,
-      password,
-    });
+    console.log('Received Request Body:', createUserDto);
+    return this.authService.register(createUserDto);
+  }
+
+  @Get('verifyDuplicate')
+  async verifyDuplicate(@Req() req: Request) {
+    const email = req.query.email as string;
+    const isDuplicate = await this.authService.verifyDuplicate(email);
+    return { isDuplicate };
   }
 
   @Post('login')

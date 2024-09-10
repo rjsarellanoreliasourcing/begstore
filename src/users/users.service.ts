@@ -27,5 +27,11 @@ export class UserService {
     const users = await this.userRepo.find();
 
     return users;
+
+
   }
+async findByEmail (email: string): Promise< User | undefined> {
+  return this.userRepo.findOne({where: { email }})
+}
+
 }
